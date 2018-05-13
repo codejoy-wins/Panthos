@@ -45,13 +45,22 @@ app.get('/', function(req, res){
 			res.render('index', {stuff: panthers});
 		}
 	})
-})
+});
 
-
+app.get('/panthers/:id', function(req, res){
+    Panther.find({_id : req.params.id}, function(err, panther){
+        if(err){
+            console.log("panther/:id error ", err);
+        }
+        else{
+            res.render('details',{magic: panther});
+        }
+    })
+});
 
 app.get('/panthers/new', function(req, res){
     res.render('new');
-})
+});
 
 app.post('/panthers', function(req, res){
 	console.log(req.body);
@@ -72,5 +81,5 @@ app.post('/panthers', function(req, res){
 
 app.listen(8000, function(){
     console.log("listening on port 8000");
-})
+});
 
